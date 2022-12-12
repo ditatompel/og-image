@@ -124,8 +124,8 @@ const Toast = ({ show, message }: ToastProps) => {
 }
 
 const themeOptions: DropdownOption[] = [
-    { text: 'Light', value: 'light' },
     { text: 'Dark', value: 'dark' },
+    { text: 'Light', value: 'light' },
 ];
 
 const fileTypeOptions: DropdownOption[] = [
@@ -145,13 +145,14 @@ const markdownOptions: DropdownOption[] = [
 ];
 
 const imageLightOptions: DropdownOption[] = [
+    { text: 'Ditatompel', value: 'https://www.ditatompel.com/lib/img/ditatompel.svg' },
     { text: 'Vercel', value: 'https://assets.vercel.com/image/upload/front/assets/design/vercel-triangle-black.svg' },
     { text: 'Next.js', value: 'https://assets.vercel.com/image/upload/front/assets/design/nextjs-black-logo.svg' },
     { text: 'Hyper', value: 'https://assets.vercel.com/image/upload/front/assets/design/hyper-color-logo.svg' },
 ];
 
 const imageDarkOptions: DropdownOption[] = [
-
+    { text: 'Ditatompel', value: 'https://www.ditatompel.com/lib/img/ditatompel.svg' },
     { text: 'Vercel', value: 'https://assets.vercel.com/image/upload/front/assets/design/vercel-triangle-white.svg' },
     { text: 'Next.js', value: 'https://assets.vercel.com/image/upload/front/assets/design/nextjs-white-logo.svg' },
     { text: 'Hyper', value: 'https://assets.vercel.com/image/upload/front/assets/design/hyper-bw-logo.svg' },
@@ -185,10 +186,10 @@ const App = (_: any, state: AppState, setState: SetState) => {
     const {
         fileType = 'png',
         fontSize = '100px',
-        theme = 'light',
+        theme = 'dark',
         md = true,
         text = '**Hello** World',
-        images=[imageLightOptions[0].value],
+        images=[imageDarkOptions[0].value],
         widths=[],
         heights=[],
         showToast = false,
@@ -199,7 +200,7 @@ const App = (_: any, state: AppState, setState: SetState) => {
     } = state;
 
     const mdValue = md ? '1' : '0';
-    const imageOptions = theme === 'light' ? imageLightOptions : imageDarkOptions;
+    const imageOptions = theme === 'dark' ? imageDarkOptions : imageLightOptions;
     const url = new URL(window.location.origin);
     url.pathname = `${encodeURIComponent(text)}.${fileType}`;
     url.searchParams.append('theme', theme);
@@ -226,7 +227,7 @@ const App = (_: any, state: AppState, setState: SetState) => {
                         options: themeOptions,
                         value: theme,
                         onchange: (val: Theme) => {
-                            const options = val === 'light' ? imageLightOptions : imageDarkOptions
+                            const options = val === 'dark' ? imageDarkOptions : imageLightOptions
                             let clone = [...images];
                             clone[0] = options[selectedImageIndex].value;
                             setLoadingState({ theme: val, images: clone });
